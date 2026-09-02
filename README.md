@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Trip Planner
 
-## Getting Started
+This is a modern, stateful React application built with Next.js that leverages generative AI to create detailed day-by-day travel itineraries. 
 
-First, run the development server:
+## Features
+- **Generative AI Integration**: Uses the Groq API (LLaMA 3) to generate structured JSON data from free-form text input.
+- **Stateful Interactive UI**: Allows users to expand/collapse details, remove stops, and reorder activities with a rich, premium design.
+- **Robust Error Handling**: Handles API failures, malformed JSON, and empty responses gracefully with retry mechanisms.
+- **Mobile Responsive**: Designed to look and function perfectly on both desktop and mobile devices.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Setup & Running Locally
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. **Configure API Keys:**
+   Create a `.env.local` file in the root directory and add your Groq API key:
+   ```env
+   GROQ_API_KEY=your_groq_api_key_here
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
 
-## Learn More
+4. **Open the App:**
+   Navigate to [http://localhost:3000](http://localhost:3000) in your browser.
 
-To learn more about Next.js, take a look at the following resources:
+## Known Limitations
+- The application currently relies on a single LLM provider (Groq) and does not support streaming (which could improve perceived latency for long itineraries).
+- AI output is unpredictable, and very complex edge cases in JSON formatting might still occasionally require a retry.
+- Reordering is currently limited to moving stops up and down within the same day. Moving stops across different days is not yet supported.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## AI-usage Note
+This project was primarily built with the assistance of an AI coding agent (Antigravity). AI was used for scaffolding the Next.js application, generating the React components, styling the UI with glassmorphism CSS, and designing the LLM integration logic. All code was carefully reviewed and validated to ensure it meets the assignment requirements and best practices.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Time Spent
+Total time spent: ~1 hour (accelerated via AI agent workflow).
