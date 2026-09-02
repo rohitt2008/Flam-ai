@@ -1,5 +1,7 @@
 # 🌍 AI Trip Planner - Frontend Internship Assignment
 
+video walkthrough: https://drive.google.com/file/d/1ATNr-FZ1fAyTIwe7wHmsbuhvqjvRdT9f/view?usp=sharing
+
 ![AI Trip Planner Banner](https://img.shields.io/badge/AI_Powered-Trip_Planner-f43f5e?style=for-the-badge&logo=react)
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
