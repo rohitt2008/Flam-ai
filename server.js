@@ -1,16 +1,26 @@
-import { NextResponse } from 'next/server';
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
 import Groq from 'groq-sdk';
+
+dotenv.config({ path: '.env.local' });
+
+const app = express();
+const port = 3001;
+
+app.use(cors());
+app.use(express.json());
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
 });
 
-export async function POST(req: Request) {
+app.post('/api/trip', async (req, res) => {
   try {
-    const { prompt } = await req.json();
+    const { prompt } = req.body;
 
     if (!prompt) {
-      return NextResponse.json({ error: 'Prompt is required' }, { status: 400 });
+      return res.status(400).json({ error: 'Prompt is required' });
     }
 
     const systemPrompt = `You are an expert travel planner. You must return a detailed day-by-day itinerary based on the user's request. 
@@ -53,16 +63,18 @@ The JSON MUST match this exact schema:
       throw new Error("Empty response from the model");
     }
 
-    // Try to parse it to ensure it's valid JSON before sending it to the client
     const parsedJson = JSON.parse(responseContent);
+    res.json(parsedJson);
 
-    return NextResponse.json(parsedJson);
-  } catch (error: any) {
+  } catch (error) {
     console.error('Groq API Error:', error);
-    // Determine if it's a parsing error or an API error
     if (error instanceof SyntaxError) {
-      return NextResponse.json({ error: 'Failed to parse AI output as JSON. Please try again.' }, { status: 500 });
+      return res.status(500).json({ error: 'Failed to parse AI output as JSON. Please try again.' });
     }
-    return NextResponse.json({ error: error.message || 'An error occurred while planning the trip.' }, { status: 500 });
+    res.status(500).json({ error: error.message || 'An error occurred while planning the trip.' });
   }
-}
+});
+
+app.listen(port, () => {
+  console.log(`Backend server running on http://localhost:${port}`);
+});
