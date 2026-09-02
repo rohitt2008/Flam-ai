@@ -42,7 +42,7 @@ The JSON MUST match this exact schema:
         { role: 'system', content: systemPrompt },
         { role: 'user', content: prompt },
       ],
-      model: 'llama-3.1-70b-versatile',
+      model: 'llama3-8b-8192',
       temperature: 0.7,
       response_format: { type: 'json_object' }
     });
