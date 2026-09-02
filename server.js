@@ -2,11 +2,16 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import Groq from 'groq-sdk';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config({ path: '.env.local' });
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
@@ -75,6 +80,12 @@ The JSON MUST match this exact schema:
   }
 });
 
+// Serve static Vite build files in production
+app.use(express.static(path.join(__dirname, 'dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
 app.listen(port, () => {
-  console.log(`Backend server running on http://localhost:${port}`);
+  console.log(`Backend server running on port ${port}`);
 });
